@@ -5,45 +5,47 @@
         <meta name="viewport"content="width=device-width,initial-scale=1.0"/>
         <title>SkyChecker</title>
         <link rel="stylesheet" href="styles.css" />
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </head>
     <body>
         <nav class="navbar">
             <div class="navbar__container">
-                <a href="/" id="navbar__logo">SkyChecker</a>
+                <a href="index.html" id="navbar__logo">SkyChecker</a>
                 <div class="navbar__toggle" id="mobile-menu">
                     <span class="bar"></span>
                     <span class="bar"></span>
                     <span class="bar"></span>
                 </div>
-                <ul class="navbar__menu">
+                <ul class="navbar__menu" id="navbar__menu_id">
                     <li class="navbar__item">
-                        <a href="/" class="navbar__links"> Home </a>
+                        <a href="index.html" class="navbar__links"> Home </a>
                     </li>
                     <li class="navbar__item">
-                        <a href="/flights.html" class="navbar__links"> Flights </a>
+                        <a href="flights.html" class="navbar__links"> Flights </a>
                     </li>
                     <li class="navbar__item">
-                        <a href="/configuration.html" class="navbar__links"> Configuration </a>
+                        <a href="configuration.html" class="navbar__links"> Configuration </a>
                     </li>
                     <li class="navbar__btn"><a href="/"class="button">Sign Up</a>
                     </li>
                 </ul>
             </div>
         </nav>
-        <script src="app.js"></script>
 
         <!--Hero section-->
         <div class="main">
             <div class="main__container">
+                <img src="images/wizzair.jpg" alt="pic" id="main__img">
                 <div class="main__content">
                     <h1>CHEAP FLIGHTS SCANNER</h1>
                     <h2>GET BEST OFFERS</h2>
                     <p>Do not ever overpay</p>
                 </div>
-                <div class="main_img--container">
+                <!-- <div class="main_img--container">
                     <img src="images/wizzair.jpg" alt="pic" id="main__img">
-                </div>
+                </div> -->
             </div>
         </div>
+        <script src="app.js"></script>
     </body>
 </html>

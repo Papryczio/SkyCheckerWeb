@@ -1,38 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"content="width=device-width,initial-scale=1.0">
-    <title>SkyChecker</title>
-    <link rel="stylesheet" href="styles.css" />
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"content="width=device-width,initial-scale=1.0">
+        <title>SkyChecker</title>
+        <link rel="stylesheet" href="styles.css" />
+        <link rel="stylesheet" href="flights.css" />
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+    </head>
+    <body>
+        <nav class="navbar">
+            <div class="navbar__container">
+                <a href="/" id="navbar__logo">SkyChecker</a>
+                <div class="navbar__toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+                </div>
+                <ul class="navbar__menu" id="navbar__menu_id">
+                    <li class="navbar__item">
+                        <a href="" class="navbar__links"> Home </a>
+                    </li>
+                    <li class="navbar__item">
+                        <a href="flights.html" class="navbar__links"> Flights </a>
+                    </li>
+                    <li class="navbar__item">
+                        <a href="configuration.html" class="navbar__links"> Configuration </a>
+                    </li>
+                    <li class="navbar__btn"><a href="/"class="button">Sign Up</a></li>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        
+        <div class="flights_main">
+            <div class="navigation-box">
+                <div id="checkDate"></div>
+                <button class="arrow-button" id="prevButton">&larr; Prev</button>
+                <button class="arrow-button" id="nextButton">Next &rarr;</button>
+                <div class="foldable-list">
+                    <select id="dataSelector"></select>
+                </div>
+                <div class="flightCurrentInfo">
+                    <div id="flightHeader"></div>
+                    <div id="flightPrice"></div>
+                    <div id="flightDeparture"></div>
+                    <div id="flightReturn"></div>
+                    <div id="flightDirect"></div>
+                    <div id="lowestPrice"></div>
+                </div>
+            </div>
 
-</head>
-<body>
-    <nav class="navbar">
-        <div class="navbar__container">
-            <a href="/" id="navbar__logo">SkyChecker</a>
-            <div class="navbar__toggle" id="mobile-menu">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
+            <div class="main_flights">
+                <canvas id="myChart"></canvas>
+            </div>
         </div>
-        <ul class="navbar__menu">
-            <li class="navbar__item">
-                <a href="/" class="navbar__links"> Home </a>
-            </li>
-            <li class="navbar__item">
-                <a href="/flights.html" class="navbar__links"> Flights </a>
-            </li>
-            <li class="navbar__item">
-                <a href="/configuration.html" class="navbar__links"> Configuration </a>
-            </li>
-            <li class="navbar__btn"><a href="/"class="button">Sign Up</a></li>
-            </li>
-        </ul>
-    </div>
-    </nav>
-    <script src="app.js"></script>
-    <h1>Flights</h1>
-</body>
 
+        <script type="module" src="app.js"></script>
+    </body>
 </html>
