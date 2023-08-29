@@ -5,6 +5,7 @@
     <meta name="viewport"content="width=device-width,initial-scale=1.0">
     <title>SkyChecker</title>
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="configuration.css" />
 
 </head>
     <body>
@@ -31,8 +32,83 @@
             </ul>
         </div>
         </nav>
-        <script src="app.js"></script>
-        <h1>Configuration</h1>
+
+        <script src="script.js"></script>
+        <div class="addConfiguration">
+            <div class="FieldWithDescription">
+                <p>Configuration name</p>
+                <input type="text" id="header" placeholder="flightToWTC" required>
+            </div>
+
+            <div class="FieldWithDescription">
+                <p>Origin airport IATA</p>
+                <input type="text" id="originIATA" placeholder="Washington" required>
+            </div>
+
+            <div class="FieldWithDescription">
+                <p>Destination airport IATA</p>
+                <input type="text" id="destinationIATA" placeholder="WTC_NYC">
+            </div>
+
+            <div class="dateRange">
+                <div class="FieldWithDescription">
+                    <p>Departure date from</p>
+                    <input type="date" id="departureDateFrom" placeholder="2023-10-23">
+                </div>
+                <div class="FieldWithDescription">
+                    <p>Departure date to</p>
+                    <input type="date" id="departureDateTo" placeholder="2023-10-23">
+                </div>
+            </div>
+
+            <div class="dateRange">
+                <div class="FieldWithDescription">
+                    <p>Return date from</p>
+                    <input type="date" id="returnDateFrom" placeholder="2023-10-23">
+                </div>
+                <div class="FieldWithDescription">
+                    <p>Return date to</p>
+                    <input type="date" id="returnDateTo" placeholder="2023-10-23">
+                </div>
+            </div>
+            
+            <div class="FieldWithDescription">
+                <p>Minimum days</p>
+                <input type="number" id="minDays" placeholder="7" min="0">
+            </div>
+
+            <div class="FieldWithDescription">
+                <p>Maximum days</p>
+                <input type="number" id="maxDays" placeholder="7" min="0">
+            </div>
+
+            <div class="FieldWithDescription">
+                <p>Direct flight?</p>
+                <input type="checkbox" id="maxDays" placeholder="True">
+            </div>
+
+            <div class="FieldWithDescription">
+                <p>Price notification treshold</p>
+                <input type="text" id="priceNotification" placeholder="230">
+            </div>
+
+            <div class="FieldWithDescription">
+                <p>Email address</p>
+                <input type="email" id="emailAddress" placeholder="skyisthelimit@dupa.com">
+            </div>
+            
+            <div class="FieldWithDescription">
+                <p>Additional info to be included in email notification</p>
+                <input type="text" ifd="additionalData" placeholder="some info here">
+            </div>
+            <button type="submit">Submit</button>
+
+            <div id="validateData">!!Data validation TO BE DONE!!</div>
+        </div>
+
+
+        <script type="module" src="configuration.js"></script>
+        
     </body>
 
 </html>

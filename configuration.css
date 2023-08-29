@@ -1,0 +1,18 @@
+.addConfiguration {
+    display: grid;
+    margin: 5px;
+    padding: 10px 20px;
+}
+
+.dateRange {
+    display:inline-flex;
+}
+
+.FieldWithDescription {
+    display: inline;
+    border: #131313;
+    margin-right: 40px;
+    margin-bottom: 10px;
+}
+
+
