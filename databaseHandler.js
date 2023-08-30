@@ -51,7 +51,7 @@ export function fetchAllFlightHeaders(callback) {
     }));
 }
 
-export function fetchConfigData(callback) {
+export function fetchConfigData(config, callback) {
     var response = "";
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
@@ -80,6 +80,9 @@ export function fetchConfigData(callback) {
             "priceNotification": 1,
             "emailNotification": 1
         },
+        "filter": {
+            "header": config
+        }
     }));
 }
 
@@ -103,7 +106,7 @@ export function getAllConfigHeaders(callback) {
     }));
 }
 
-export function insertConfiguration(configMap, callback) {
+export function insertOrModifyConfiguration(configMap, callback) {
     var response = "";
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
@@ -113,12 +116,16 @@ export function insertConfiguration(configMap, callback) {
         }
     };
     
-    xhttp.open("POST", "https://eu-central-1.aws.data.mongodb-api.com/app/data-uiofu/endpoint/data/v1/action/insertOne", true);
+    xhttp.open("POST", "https://eu-central-1.aws.data.mongodb-api.com/app/data-uiofu/endpoint/data/v1/action/updateOne", true);
     xhttp.setRequestHeader("content-type", "application/json")
     xhttp.send(JSON.stringify({
         "collection": "Configuration",
         "database": "skyChecker",
         "dataSource": "SkyChecker",
-        "document": configMap
+        "filter": {
+            "header": configMap.header
+        },
+        "upsert": true,
+        "update": configMap
     }));
 }

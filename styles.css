@@ -6,9 +6,7 @@
 }
 
 .navbar {
-    /* background-image: linear-gradient(to top, #08b1ff 0%, #fdf0fd 100%); */
-    /* background-color: #131313; */
-    background-image: linear-gradient(to left, #131313 0%, #303030 100%);
+    background-image: linear-gradient(to top, #2B124C 0%, #DFB6B2 100%);
     height: 80px;
     display: flex;
     justify-content: center;
@@ -31,8 +29,7 @@
 }
 
 #navbar__logo {
-    /* background-color: #000000; */
-    background-image: linear-gradient(to top, #08b1ff 0%, #fdf0fd 100%);
+    background-color: #000000;
     background-size: 100%;
     -webkit-background-clip: text;
     -moz-background-clip: text;

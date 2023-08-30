@@ -1,3 +1,17 @@
+.mainConfigContainer {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.configNavigation {
+    margin: 20px;
+    display: inline-flex;
+}
+
 .addConfiguration {
     display: grid;
     margin: 5px;
@@ -13,6 +27,102 @@
     border: #131313;
     margin-right: 40px;
     margin-bottom: 10px;
+    font-weight: bold;
 }
 
+.FieldWithDescription.p {
+    text-align: center;
+}
 
+.CheckBoxWithDescription {
+    display: flex;
+    border: #131313;
+    margin-right: 40px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.checkBoxDescription {
+    margin-left: 10px;
+}
+
+.foldable-list-config {
+    display: inline-block;
+    position: relative;
+}
+
+#configSelector {
+    padding: 10px 30px 10px 10px;
+    font-size: 16px;
+    border: 2px solid #3498db;
+    border-radius: 4px;
+    background-color: rgba(206, 206, 206, 0.936);
+    cursor: pointer;
+    min-width: 300px;
+}
+
+.box {
+    border: 2px solid #3498db;
+    border-radius: 10px;
+    min-width: 300px;
+    text-align: center;
+}
+
+/* Buttons */
+
+.submitButton {
+    background-color: #3498db;
+    border: #131313;
+    border-width: 5px;
+    border-radius: 10px;
+    font-size: large;
+    font-weight: bolder;
+}
+
+.next-button {
+    background-color: #3498db;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .arrow-next {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: solid transparent;
+    border-width: 10px;
+    border-left-color: white;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .prev-button {
+    background-color: #3498db;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .arrow-prev {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: solid transparent;
+    border-width: 10px;
+    border-right-color: white;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+  }

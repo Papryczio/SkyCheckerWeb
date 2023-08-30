@@ -156,7 +156,6 @@ function createChart(json, canva) {
 // ==============
 
 // Display elements
-let currentIndex = 0;
 const checkDate         = document.getElementById("checkDate");
 const flightHeader      = document.getElementById("flightHeader");
 const flightPrice       = document.getElementById("flightPrice");
@@ -167,6 +166,7 @@ const lowestPrice       = document.getElementById("lowestPrice");
 const ctx               = document.getElementById('myChart').getContext('2d');
 
 // Navigation
+let currentIndex = 0;
 const prevButton    = document.getElementById("prevButton");
 const nextButton    = document.getElementById("nextButton");
 const dataSelector  = document.getElementById("dataSelector");
