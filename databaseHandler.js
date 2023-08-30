@@ -12,8 +12,11 @@ export function fetchFlightData(route, callback) {
         "collection": "flightData",
         "database": "skyChecker",
         "dataSource": "SkyChecker",
+        "filter": {
+            "name": route
+        },
         "projection": {
-            "name": route,
+            "name": 1,
             "from": 1,
             "to": 1,
             "direct": 1,
@@ -22,6 +25,29 @@ export function fetchFlightData(route, callback) {
             "return": 1,
             "checkDate": 1
         },
+    }));
+}
+
+export function fetchAllFlightHeaders(callback) {
+    var response = "";
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            response = this.responseText;
+            callback(response);
+        }
+    };
+    xhttp.open("POST", "https://eu-central-1.aws.data.mongodb-api.com/app/data-uiofu/endpoint/data/v1/action/find", true);
+    xhttp.send(JSON.stringify({
+        "collection": "flightData",
+        "database": "skyChecker",
+        "dataSource": "SkyChecker",
+        "projection": {
+            "name": 1
+        },
+        "sort": {
+            "name": 1
+        }
     }));
 }
 
