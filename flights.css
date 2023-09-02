@@ -52,3 +52,18 @@
     margin-top: 10px;
     font-size: large;
 }
+
+.nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    position: sticky;
+    z-index: 2;
+    top: 80px;
+    background-color: #ffffff;
+    margin: 5px;
+    border-radius: 5px;
+    border-width: 5px;
+    border-color: #131313;
+}

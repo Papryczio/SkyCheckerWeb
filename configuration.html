@@ -53,13 +53,15 @@
                 </div>
 
                 <div class="FieldWithDescription">
-                    <p>Origin airport IATA</p>
-                    <input class="box" type="text" id="originIATA" placeholder="Washington">
+                    <p>Origin airport</p>
+                    <input class="box" type="text" id="originAirport" placeholder="origin airport">
+                    <div class="hint" id="originAirportHint"></div>
                 </div>
 
                 <div class="FieldWithDescription">
-                    <p>Destination airport IATA</p>
-                    <input class="box" type="text" id="destinationIATA" placeholder="WTC_NYC">
+                    <p>Destination airport</p>
+                    <input class="box" type="text" id="destinationAirport" placeholder="origin airport">
+                    <div class="hint" id="destinationAirportHint"></div>
                 </div>
 
                 <div class="dateRange">
@@ -117,7 +119,7 @@
                 </div>
                 <button class="submitButton" id="submit">Submit</button>
 
-                <div id="validateData">!!Data validation TO BE DONE!!</div>
+                <div id="validateData"></div>
             </div>
         </div>
 

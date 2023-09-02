@@ -1,4 +1,5 @@
 import {fetchConfigData, getAllConfigHeaders, insertOrModifyConfiguration} from "./databaseHandler.js"
+import {map, getIATAcode, getListOfAirports, getAirport} from "./IATAdictionary.js"
 
 var configs = []
 
@@ -25,37 +26,53 @@ async function fetchDataAndProcess() {
 }
 
 await fetchDataAndProcess();
-console.log(configs)
+console.debug(configs)
 
 // GUI Elements
-var header              = document.getElementById("header");
-var originIATA          = document.getElementById("originIATA");
-var destinationIATA     = document.getElementById("destinationIATA")
-var departureDateFrom   = document.getElementById("departureDateFrom")
-var departureDateTo     = document.getElementById("departureDateTo")
-var returnDateFrom      = document.getElementById("returnDateFrom")
-var returnDateTo        = document.getElementById("returnDateTo")
-var minDays             = document.getElementById("minDays")
-var maxDays             = document.getElementById("maxDays")
-var directFlight        = document.getElementById("directFlight")
-var priceNotification   = document.getElementById("priceNotification")
-var emailAddress        = document.getElementById("emailAddress")
-var additionalInfo      = document.getElementById("additionalInfo")
+var header                  = document.getElementById("header");
+var originAirport           = document.getElementById("originAirport");
+var originAirportHint       = document.getElementById("originAirportHint");
+var destinationAirport      = document.getElementById("destinationAirport");
+var destinationAirportHint  = document.getElementById("destinationAirportHint");
+var departureDateFrom       = document.getElementById("departureDateFrom")
+var departureDateTo         = document.getElementById("departureDateTo")
+var returnDateFrom          = document.getElementById("returnDateFrom")
+var returnDateTo            = document.getElementById("returnDateTo")
+var minDays                 = document.getElementById("minDays")
+var maxDays                 = document.getElementById("maxDays")
+var directFlight            = document.getElementById("directFlight")
+var priceNotification       = document.getElementById("priceNotification")
+var emailAddress            = document.getElementById("emailAddress")
+var additionalInfo          = document.getElementById("additionalInfo")
 
-var dataValid           = document.getElementById("validateData")
+var dataValid               = document.getElementById("validateData")
 const submit = document.getElementById('submit')
 submit.addEventListener('click', function() {
     var data = createInsertData();
-    insertOrModifyConfiguration(data, function(response) {
-        console.log(response)
-    })
+    if (!data) {
+        dataValid.textContent = "Data invalid!"
+        dataValid.style.color = "red"
+    } else {
+        insertOrModifyConfiguration(data, function(response) {
+            dataValid.textContent = "Data inserted"
+            dataValid.style.color = "green"
+            console.log(response)
+        })
+    }
 })
 
 function createInsertData() {
     var json = {}
+    
+    var originAirportIATA = getIATAcode(originAirport.value)
+    var destinationAirportIATA = getIATAcode(destinationAirport.value)
+    if(!originAirportIATA || !destinationAirportIATA) {
+        console.error("Airport does not exist or has not been configured")
+        return null;
+    }
     json["header"]                  = header.value
-    json["originAirportIATA"]       = originIATA.value
-    json["destinationAirportIATA"]  = destinationIATA.value
+    json["originAirportIATA"]       = originAirportIATA
+    json["destinationAirportIATA"]  = destinationAirportIATA
     json["dateFrom"] = {
         "year":     parseInt(departureDateFrom.value.split('-')[0]),
         "month":    parseInt(departureDateFrom.value.split('-')[1]),
@@ -110,7 +127,6 @@ function validateDates(date1, date2) {
     if (dateFrom <= dateTo) return 0
     else {
         console.error("Data invalid\n" + dateFrom + "\n" + dateTo)
-        dataValid.textContent = "Data invalid"
         return 1
     }
 }
@@ -132,15 +148,15 @@ function displayData(index) {
         var cfg = configuration.documents[0]
 
         // Populate textFields
-        header.value            = cfg.header
-        originIATA.value        = cfg.originAirportIATA
-        destinationIATA.value   = cfg.destinationAirportIATA
-        departureDateFrom.value = checkDateLength(cfg.dateFrom)
-        departureDateTo.value   = checkDateLength(cfg.dateTo)
-        returnDateFrom.value    = checkDateLength(cfg.dateFromReturn)
-        returnDateTo.value      = checkDateLength(cfg.dateToReturn)
-        minDays.value           = cfg.daysMinimum
-        maxDays.value           = cfg.daysMaximum
+        header.value                = cfg.header
+        originAirport.value         = getAirport(cfg.originAirportIATA)
+        destinationAirport.value    = getAirport(cfg.destinationAirportIATA)
+        departureDateFrom.value     = checkDateLength(cfg.dateFrom)
+        departureDateTo.value       = checkDateLength(cfg.dateTo)
+        returnDateFrom.value        = checkDateLength(cfg.dateFromReturn)
+        returnDateTo.value          = checkDateLength(cfg.dateToReturn)
+        minDays.value               = cfg.daysMinimum
+        maxDays.value               = cfg.daysMaximum
         if (cfg.onlyDirectFlights === 'True') {
             directFlight.checked = 1
         } else {
@@ -171,6 +187,7 @@ function checkDateLength(dateObject) {
     return correctedDate
 }
 
+// Navigation arrows and foldable list
 function populateDataSelector() {
     configSelector.innerHTML = "";
     configs.forEach((item, index) => {
@@ -206,3 +223,79 @@ configSelector.addEventListener("change", (event) => {
 populateDataSelector();
 displayData(currentIndex)
 foldableList.style.display = "block";
+
+// ===========================================================
+//                   AIRPORT NAME HINTS
+// ===========================================================
+
+var hints = getListOfAirports()
+
+originAirport.addEventListener('input', function () {
+    const inputValue = originAirport.value.toLowerCase();
+  
+    if (inputValue.length === 0) {
+        originAirportHint.style.display = 'none';
+        return;
+    }
+  
+    const matchingHints = hints.filter((hint) =>
+        hint.toLowerCase().includes(inputValue)
+    );
+  
+    if (matchingHints.length === 0) {
+        originAirportHint.style.display = 'none';
+    } else {
+        for (let i = matchingHints.length - 1; i > 5; i--) {
+            matchingHints.splice(i, 1);
+        }
+
+        const hintList = matchingHints
+            .map((hint) => `<div>${hint}</div>`)
+            .join('');
+
+        originAirportHint.innerHTML = hintList;
+        originAirportHint.style.display = 'block';
+    }
+});
+
+originAirportHint.addEventListener('click', function (event) {
+    if (event.target.tagName === 'DIV') {
+        originAirport.value = event.target.textContent;
+        originAirportHint.style.display = 'none';
+    }
+});
+
+destinationAirport.addEventListener('input', function () {
+    const inputValue = destinationAirport.value.toLowerCase();
+  
+    if (inputValue.length === 0) {
+        destinationAirportHint.style.display = 'none';
+        return;
+    }
+  
+    const matchingHints = hints.filter((hint) =>
+        hint.toLowerCase().includes(inputValue)
+    );
+  
+    if (matchingHints.length === 0) {
+        destinationAirportHint.style.display = 'none';
+    } else {
+        for (let i = matchingHints.length - 1; i > 5; i--) {
+            matchingHints.splice(i, 1);
+        }
+
+        const hintList = matchingHints
+            .map((hint) => `<div class="airportHint">${hint}</div>`)
+            .join('');
+
+        destinationAirportHint.innerHTML = hintList;
+        destinationAirportHint.style.display = 'block';
+    }
+});
+
+destinationAirportHint.addEventListener('click', function (event) {
+    if (event.target.tagName === 'DIV') {
+        destinationAirport.value = event.target.textContent;
+        destinationAirportHint.style.display = 'none';
+    }
+});
