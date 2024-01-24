@@ -1,3 +1,5 @@
+var API_URL = "https://eu-central-1.aws.data.mongodb-api.com/app/data-opowv/endpoint/data/v1/action/"
+
 export function fetchFlightData(route, callback) {
     var response = "";
     var xhttp = new XMLHttpRequest();
@@ -7,7 +9,8 @@ export function fetchFlightData(route, callback) {
             callback(response);
         }
     };
-    xhttp.open("POST", "https://eu-central-1.aws.data.mongodb-api.com/app/data-uiofu/endpoint/data/v1/action/find", true);
+    xhttp.open("POST", API_URL + "find", true);
+    
     xhttp.send(JSON.stringify({
         "collection": "flightData",
         "database": "skyChecker",
@@ -37,7 +40,7 @@ export function fetchAllFlightHeaders(callback) {
             callback(response);
         }
     };
-    xhttp.open("POST", "https://eu-central-1.aws.data.mongodb-api.com/app/data-uiofu/endpoint/data/v1/action/find", true);
+    xhttp.open("POST", API_URL + "find", true);
     xhttp.send(JSON.stringify({
         "collection": "flightData",
         "database": "skyChecker",
@@ -46,7 +49,7 @@ export function fetchAllFlightHeaders(callback) {
             "name": 1
         },
         "sort": {
-            "name": 1
+            "name": -1
         }
     }));
 }
@@ -60,7 +63,7 @@ export function fetchConfigData(config, callback) {
             callback(response);
         }
     };
-    xhttp.open("POST", "https://eu-central-1.aws.data.mongodb-api.com/app/data-uiofu/endpoint/data/v1/action/find", true);
+    xhttp.open("POST", API_URL + "find", true);
     xhttp.send(JSON.stringify({
         "collection": "Configuration",
         "database": "skyChecker",
@@ -73,6 +76,9 @@ export function fetchConfigData(config, callback) {
             "dateTo": 1,
             "dateFromReturn": 1,
             "dateToReturn": 1,
+            "date": 1,
+            "dateReturn": 1,
+            "isFixed": 1,
             "daysMinimum": 1,
             "daysMaximum": 1,
             "onlyDirectFlights": 1,
@@ -80,9 +86,9 @@ export function fetchConfigData(config, callback) {
             "priceNotification": 1,
             "emailNotification": 1
         },
-        "filter": {
-            "header": config
-        }
+        // "filter": {
+        //     "header": config
+        // }
     }));
 }
 
@@ -95,7 +101,7 @@ export function getAllConfigHeaders(callback) {
             callback(response);
         }
     };
-    xhttp.open("POST", "https://eu-central-1.aws.data.mongodb-api.com/app/data-uiofu/endpoint/data/v1/action/find", true);
+    xhttp.open("POST", API_URL + "find", true);
     xhttp.send(JSON.stringify({
         "collection": "Configuration",
         "database": "skyChecker",
@@ -116,7 +122,7 @@ export function insertOrModifyConfiguration(configMap, callback) {
         }
     };
     
-    xhttp.open("POST", "https://eu-central-1.aws.data.mongodb-api.com/app/data-uiofu/endpoint/data/v1/action/updateOne", true);
+    xhttp.open("POST", API_URL + "updateOne", true);
     xhttp.setRequestHeader("content-type", "application/json")
     xhttp.send(JSON.stringify({
         "collection": "Configuration",
@@ -127,5 +133,47 @@ export function insertOrModifyConfiguration(configMap, callback) {
         },
         "upsert": true,
         "update": configMap
+    }));
+}
+
+export function removeConfiguration(header, callback) {
+    var response = "";
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            response = this.responseText;
+            callback(response);
+        }
+    };
+
+    xhttp.open("POST", API_URL + "deleteOne", true);
+    xhttp.setRequestHeader("content-type", "application/json")
+    xhttp.send(JSON.stringify({
+        "collection": "Configuration",
+        "database": "skyChecker",
+        "dataSource": "SkyChecker",
+        "filter": {
+            "header": header
+        }
+    }));
+}
+
+export function removeData(header, callback) {
+    var response = "";
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            response = this.responseText;
+            callback(response);
+        }
+    };
+    xhttp.open("POST", API_URL + "deleteMany", true);
+    xhttp.send(JSON.stringify({
+        "collection": "flightData",
+        "database": "skyChecker",
+        "dataSource": "SkyChecker",
+        "filter": {
+            "name": header
+        },
     }));
 }

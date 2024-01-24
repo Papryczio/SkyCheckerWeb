@@ -1,10 +1,18 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Courier New', Courier, monospace;
+}
+
 .mainConfigContainer {
-    display: flex;
+    display: grid;
     align-items: center;
     align-content: center;
     flex-direction: column;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: center;
+    justify-items: center;
 }
 
 .configNavigation {
@@ -14,12 +22,28 @@
 
 .addConfiguration {
     display: grid;
+    align-items: center;
+    align-content: center;
+    align-self: center;
     margin: 5px;
     padding: 10px 20px;
 }
 
 .dateRange {
-    display:inline-flex;
+    display: inline-flex;
+}
+
+.dateRangeMonths {
+    display :grid;
+}
+
+.fixedDataSelector {
+    display: grid;
+}
+
+.dateSelectorFixed {
+    opacity: 0.4;
+    pointer-events: 'null';
 }
 
 .FieldWithDescription {
@@ -82,6 +106,16 @@
     border-radius: 10px;
     font-size: large;
     font-weight: bolder;
+}
+
+.removeConfigButton {
+    background-color: #3498db;
+    border: #131313;
+    border-width: 5px;
+    border-radius: 10px;
+    font-size: large;
+    font-weight: bolder;
+    margin-top: 10px;
 }
 
 .next-button {
@@ -151,3 +185,9 @@
     padding: 5px;
     display: none;
   }
+
+  .removeConfig {
+    display: grid;
+    margin: 5px;
+    padding: 10px 20px;
+}

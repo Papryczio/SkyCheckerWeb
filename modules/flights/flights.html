@@ -4,35 +4,18 @@
         <meta charset="UTF-8">
         <meta name="viewport"content="width=device-width,initial-scale=1.0">
         <title>SkyChecker</title>
-        <link rel="stylesheet" href="styles.css" />
-        <link rel="stylesheet" href="flights.css" />
+        <link rel="stylesheet" href="/modules/flights/flights.css" />
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+        <script src="/libs/jquery-3.7.1.js"></script>
+        <script> 
+            $(function(){
+                $("#navbar").load("/modules/navigation/navbar.html");  
+            });
+        </script> 
     </head>
     <body>
-        <nav class="navbar">
-            <div class="navbar__container">
-                <a href="index.html" id="navbar__logo">SkyChecker</a>
-                <div class="navbar__toggle" id="mobile-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-                </div>
-                <ul class="navbar__menu" id="navbar__menu_id">
-                    <li class="navbar__item">
-                        <a href="index.html" class="navbar__links"> Home </a>
-                    </li>
-                    <li class="navbar__item">
-                        <a href="flights.html" class="navbar__links"> Flights </a>
-                    </li>
-                    <li class="navbar__item">
-                        <a href="configuration.html" class="navbar__links"> Configuration </a>
-                    </li>
-                    <li class="navbar__btn"><a href="/"class="button">Sign Up</a></li>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+        <div id="navbar"></div>
 
         <div class="nav">
             <div id="checkDate"></div>
@@ -61,6 +44,6 @@
             </div>
         </div>
 
-        <script type="module" src="app.js"></script>
+        <script type="module" src="/modules/flights/flights.js"></script>
     </body>
 </html>

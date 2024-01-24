@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"content="width=device-width,initial-scale=1.0">
+    <title>SkyChecker</title>
+    <!-- <link rel="stylesheet" href="styles.css" /> -->
+    <link rel="stylesheet" href="/modules/configuration/configuration.css" />
+    <script src="/libs/jquery-3.7.1.js"></script>
+    <script> 
+        $(function(){
+            $("#navbar").load("../navigation/navbar.html");  
+        });
+    </script> 
+</head>
+    <body>
+        <div id="navbar"></div>
+
+        <div class="mainConfigContainer">
+            <div class="configNavigation">
+                <button class="prev-button" id="prevConfig">
+                    <span class="arrow-prev"></span>
+                </button>
+                <div class="foldable-list-config">
+                    <select id="configSelector"></select>
+                </div>
+                <button class="next-button" id="nextConfig">
+                    <span class="arrow-next"></span>
+                </button>
+            </div>
+
+            <div class="addConfiguration">
+                <div class="FieldWithDescription">
+                    <div class="label" id="configurationName_label">Configuration name</div>
+                    <input class="box" type="text" id="header" placeholder="flightToWTC" title="Unique name of the configuration">
+                </div>
+
+                <div class="FieldWithDescription">
+                    <div class="label" id="originAirport_label">From</div>
+                    <input class="box" type="text" id="originAirport" placeholder="origin airport">
+                    <div class="hint" id="originAirportHint"></div>
+                </div>
+
+                <div class="FieldWithDescription">
+                    <div class="label" id="destinationAirport_label">To</div>
+                    <input class="box" type="text" id="destinationAirport" placeholder="origin airport">
+                    <div class="hint" id="destinationAirportHint"></div>
+                </div>
+
+                <!-- Date configuration -->
+                <div class="dateConfig">
+                    <div class="CheckBoxWithDescription">
+                        <input type="checkbox" id="fixedDate">
+                        <div class="label" id="fixedDate_label">Date fixed?</div>
+                    </div>
+
+                    <div class="CheckBoxWithDescription">
+                        <input type="checkbox" id="isReturn" checked>
+                        <div class="label" id="isReturn_label">Return flight?</div>
+                    </div>
+                </div>
+
+                <!-- Fixed data selector -->
+                <div class="dateSelectorFixed" id="dateSelectorFixed">
+                    <div class="dataFrame">
+                        <div class="dateRange">
+                            <div class="FieldWithDescription">
+                                <div class="label" id="departureDate_label">Departure date</div>
+                                <input class="box" type="date" id="departureDate" placeholder="2023-10">
+                            </div>
+                        </div>
+                    
+                        <div class="dateRange" id="dateRangeReturnFixed">
+                            <div class="FieldWithDescription">
+                                <div class="label" id="returnDate_label">Return date</div>
+                                <input class="box" type="date" id="returnDate" placeholder="2023-10">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Date range for whole months -->
+                <div class="dateSelectorMonths" id="dateSelectorMonths">
+                    <div class="dateRange">
+                        <div class="FieldWithDescription">
+                            <div class="label" id="departureDateFrom_label">Departure date from</div>
+                            <input class="box" type="month" id="departureDateFrom" placeholder="2023-10-01">
+                        </div>
+                        <div class="FieldWithDescription">
+                            <div class="label" id="departureDateTo_label">Departure date to</div>
+                            <input class="box" type="month" id="departureDateTo" placeholder="2023-10-01">
+                        </div>
+                    </div>
+                
+                    <div class="dateRange"  id="dateRangeReturnMonths">
+                        <div class="FieldWithDescription">
+                            <div class="label" id="returnDateFrom_label">Return date from</div>
+                            <input class="box" type="month" id="returnDateFrom" placeholder="2023-10-01">
+                        </div>
+                        <div class="FieldWithDescription">
+                            <div class="label" id="returnDateTo_label">Return date to</div>
+                            <input class="box" type="month" id="returnDateTo" placeholder="2023-10-01">
+                        </div>
+                    </div>
+                
+                    <div class="FieldWithDescription">
+                        <div class="label" id="minDays_label">Minimum days</div>
+                        <input class="box" type="number" id="minDays" placeholder="7" min="0">
+                    </div>
+
+                    <div class="FieldWithDescription">
+                        <div class="label" id="maxDays_label">Maximum days</div>
+                        <input class="box" type="number" id="maxDays" placeholder="7" min="0">
+                    </div>
+                </div>
+
+                <div class="CheckBoxWithDescription">
+                    <input type="checkbox" id="directFlight">
+                    <div class="label" id="directFlight_label">Direct flight?</div>
+                </div>
+
+                <div class="FieldWithDescription">
+                    <div class="label" id="priceNotification_label">Price notification threshold</div>
+                    <input class="box" type="text" id="priceNotification" placeholder="230">
+                </div>
+
+                <div class="FieldWithDescription">
+                    <div class="label" id="emailAddress_label">Email address</div>
+                    <input class="box" type="email" id="emailAddress" placeholder="skyisthelimit@dupa.com">
+                </div>
+                
+                <div class="FieldWithDescription">
+                    <div class="label" id="additionalInfo_label">Additional info to be included in email notification</div>
+                    <input class="box" type="text" id="additionalInfo" placeholder="some info here">
+                </div>
+                <button class="submitButton" id="submit">Submit</button>
+
+                <div id="validateData"></div>
+            </div>
+
+            <div class="removeConfig">
+                <button class="removeConfigButton" id="remove">Remove configuration</button>
+                <button class="removeConfigButton" id="removeWithData">Remove configuration with data</button>
+            </div>
+        </div>
+
+        <script type="module" src="/modules/configuration/configuration.js"></script>
+        
+    </body>
+
+</html>

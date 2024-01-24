@@ -1,12 +1,5 @@
-import {fetchFlightData, fetchAllFlightHeaders} from "./databaseHandler.js"
-
-const menu = document.querySelector('#mobile-menu');
-const menuLinks = document.querySelector('.navbar__menu');
-
-menu.addEventListener('click', function() {
-    menu.classList.toggle('is-active');
-    menuLinks.classList.toggle('active');
-})
+import {fetchFlightData, fetchAllFlightHeaders} from "/libs/databaseHandler.js"
+import { translateFlights } from "../../libs/translation.js";
 
 // Fetching configured routes
 let routes = [];
@@ -95,12 +88,13 @@ function createChart(json, canva) {
         json.documents.forEach(entry => {
             var date2 = parseInt(new Date(entry.checkDate).getTime())
             if (date1 === date2) {
-                labelText += "Price: " + entry.price + " PLN"
-                labelText += "\nDeparture: " + entry.departure;
+                // TODO: WALUTA
+                labelText += dictionary.price + ": " + entry.price + " PLN"
+                labelText += "\n" + dictionary.departure + entry.departure;
                 if (entry.return) {
-                    labelText += "\nReturn: " + entry.return;
+                    labelText += "\n" + dictionary.return + entry.return;
                 }
-                labelText += "\nDirect: " + entry.direct
+                labelText += "\n" + dictionary.direct + entry.direct
             }
         })
         return labelText
@@ -108,7 +102,7 @@ function createChart(json, canva) {
 
     const label = (tooltipItem) => {
         var date = new Date(tooltipItem.parsed.x)
-        return "Date: " + date
+        return dictionary.date + ": " + date
     }
 
     const options = {
@@ -117,7 +111,7 @@ function createChart(json, canva) {
                 beginAtZero: true,
                 title: {
                     display: true,
-                    text: 'Price'
+                    text: dictionary.price
                 }
             },
             x: {
@@ -131,7 +125,7 @@ function createChart(json, canva) {
                 },
                 title: {
                     display: true,
-                    text: 'Date'
+                    text: dictionary.date
                 }
             }
         },
@@ -155,15 +149,7 @@ function createChart(json, canva) {
 // Current prices
 // ==============
 
-// Display elements
-const checkDate         = document.getElementById("checkDate");
-const flightHeader      = document.getElementById("flightHeader");
-const flightPrice       = document.getElementById("flightPrice");
-const flightDeparture   = document.getElementById("flightDeparture");
-const flightReturn      = document.getElementById("flightReturn");
-const flightDirect      = document.getElementById("flightDirect");
-const lowestPrice       = document.getElementById("lowestPrice");
-const ctx               = document.getElementById('myChart').getContext('2d');
+const ctx = document.getElementById('myChart').getContext('2d');
 
 // Navigation
 let currentIndex = 0;
@@ -175,33 +161,33 @@ const foldableList  = document.querySelector(".foldable-list");
 function displayData(index) {
     fetchFlightData(routes[index], function(response) {
         var flight = JSON.parse(response)
-        // Current data
+
         var lastIndex = flight.documents.length - 1
 
-        checkDate.textContent       = 'Last check: '    + flight.documents[lastIndex].checkDate;
-        flightHeader.textContent    = 'Route: '         + routes[index];
-        flightPrice.textContent     = 'Current price: ' + flight.documents[lastIndex].price + " PLN";
-        flightDeparture.textContent = 'Departure: '     + flight.documents[lastIndex].departure;
-        flightReturn.textContent    = 'Return: '        + flight.documents[lastIndex].return;
-        flightDirect.textContent    = 'Direct: '        + flight.documents[lastIndex].direct;
+        checkDate.textContent       = dictionary.last_check + flight.documents[lastIndex].checkDate;
+        flightHeader.textContent    = dictionary.route + routes[index];
+        flightPrice.textContent     = dictionary.route + flight.documents[lastIndex].price + " PLN";
+        flightDeparture.textContent = dictionary.departure + flight.documents[lastIndex].departure;
+        flightReturn.textContent    = dictionary.return + flight.documents[lastIndex].return;
+        flightDirect.textContent    = dictionary.direct + flight.documents[lastIndex].direct;
 
         // Historic data
         var historicLow = getLow(flight)
-        lowestPrice.textContent = 'The lowest price ' + historicLow[0] + ' on ' + historicLow[1].split('T')[0];
-        averagePrice.textContent = 'The average price is: ' + getAverage(flight)
+        lowestPrice.textContent = dictionary.lowest_price + historicLow[0] + dictionary.on_day + historicLow[1].split('T')[0];
+        averagePrice.textContent = dictionary.average_price + getAverage(flight)
 
         // Graph
         if (myChart) {
-            console.log("Rozdupcam")
             myChart.destroy();
         }
-        
+
         createChart(flight, ctx);
     });
 }
 
 function populateDataSelector() {
     dataSelector.innerHTML = "";
+    console.log(routes)
     routes.forEach((item, index) => {
         const option = document.createElement("option");
         option.value = index;
@@ -231,6 +217,11 @@ dataSelector.addEventListener("change", (event) => {
   currentIndex = parseInt(event.target.value);
   displayData(currentIndex);
 });
+
+var dictionary = translateFlights()
+
+prevButton.textContent = dictionary.previous_button
+nextButton.textContent = dictionary.next_button
 
 populateDataSelector();
 displayData(currentIndex);
