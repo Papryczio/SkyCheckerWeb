@@ -5,8 +5,9 @@
     <meta name="viewport"content="width=device-width,initial-scale=1.0">
     <title>SkyChecker</title>
     <!-- <link rel="stylesheet" href="styles.css" /> -->
-    <link rel="stylesheet" href="/modules/configuration/configuration.css" />
-    <script src="/libs/jquery-3.7.1.js"></script>
+    <link rel="stylesheet" href="./configuration.css" />
+    <script src="../../libs/jquery-3.7.1.js"></script>
+    <script type="module" src="./configuration.js"></script>
     <script> 
         $(function(){
             $("#navbar").load("../navigation/navbar.html");  
@@ -143,9 +144,6 @@
                 <button class="removeConfigButton" id="removeWithData">Remove configuration with data</button>
             </div>
         </div>
-
-        <script type="module" src="/modules/configuration/configuration.js"></script>
-        
     </body>
 
 </html>
