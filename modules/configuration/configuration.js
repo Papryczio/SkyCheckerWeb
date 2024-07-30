@@ -1,6 +1,6 @@
-import {fetchConfigData, getAllConfigHeaders, insertOrModifyConfiguration, removeConfiguration, removeData} from "/libs/databaseHandler.js"
-import {map, getIATAcode, getListOfAirports, getAirport} from "/libs/IATAdictionary.js"
-import { translateConfig } from "../../libs/translation.js";
+import {fetchConfigData, getAllConfigHeaders, insertOrModifyConfiguration, removeConfiguration, removeData} from "/SkyCheckerWeb/libs/databaseHandler.js"
+import {map, getIATAcode, getListOfAirports, getAirport} from "/SkyCheckerWeb/libs/IATAdictionary.js"
+import { translateConfig } from "/SkyCheckerWeb/libs/translation.js";
 
 var dictionary = translateConfig()
 

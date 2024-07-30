@@ -1,4 +1,4 @@
-import { translateNavbar } from "../../libs/translation.js"
+import { translateNavbar } from "/SkyCheckerWeb/libs/translation.js"
 
 var dictionary = translateNavbar()
 

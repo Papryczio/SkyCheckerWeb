@@ -24,7 +24,7 @@ description: >- # this means to ignore newlines until "baseurl:"
   Monitor flight prices here.
 domain: papryczio.github.io       # if you want to force HTTPS, specify the domain without the http at the start, e.g. example.com
 url: https://papryczio.github.io  # the base hostname and protocol for your site, e.g. http://example.com
-baseurl: /SkyCheckerWeb/      # place folder name if the site is served in a subfolder
+# baseurl: /SkyCheckerWeb/      # place folder name if the site is served in a subfolder
 twitter_username: jekyllrb
 github_username:  papryczio
 

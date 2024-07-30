@@ -1,5 +1,5 @@
-import {fetchFlightData, fetchAllFlightHeaders} from "/libs/databaseHandler.js"
-import { translateFlights } from "../../libs/translation.js";
+import {fetchFlightData, fetchAllFlightHeaders} from "/SkyCheckerWeb/libs/databaseHandler.js"
+import { translateFlights } from "/SkyCheckerWeb/libs/translation.js";
 
 // Fetching configured routes
 let routes = [];
